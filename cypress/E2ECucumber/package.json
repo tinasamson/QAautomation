@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "cypress:open:tst": "npx cypress open --config-file cypress.config.js --browser chrome",
+    "cypress:ci:tst": "npx cypress run --config-file cypress.config.js --browser chrome"
+  },
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "step_definitions/",
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "reports",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
+  },
+  "devDependencies": {
+    "cypress": "^14.1.0"
+  },
+  "dependencies": {
+    "cypress-cucumber-preprocessor": "^4.3.1"
+  }
+}
