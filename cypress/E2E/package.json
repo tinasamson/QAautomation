@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "cypress:ci:tst": "npx cypress run --config-file cypress.config.js --browser chrome",
+    "cypress:open:tst": "npx cypress open --config-file cypress.config.js --browser chrome"
+  },
   "devDependencies": {
     "cypress": "^14.1.0"
   }
