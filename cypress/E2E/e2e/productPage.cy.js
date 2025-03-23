@@ -26,9 +26,14 @@ describe('Product Page', () => {
         expect(nameProductList).to.eq(nameProductDetail)
       });
     });
-    cy.get(".product-information p").eq(0).contains("Category:");
-    cy.get(".product-information p").eq(1).contains("Availability");
-    cy.get(".product-information p").eq(2).contains("Condition");
-    cy.get(".product-information p").eq(3).contains("Brand");
+    const productInfo = ["Category:", "Availability", "Condition", "Brand"];
+    cy.get(".product-information p").each((productDetail, index)=>{
+      cy.wrap(productDetail).contains(productInfo[index]); 
+    })
+    // To validate without each() ->
+    // cy.get(".product-information p").eq(0).contains("Category:");
+    // cy.get(".product-information p").eq(1).contains("Availability");
+    // cy.get(".product-information p").eq(2).contains("Condition");
+    // cy.get(".product-information p").eq(3).contains("Brand");
   })
 })
