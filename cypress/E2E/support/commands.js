@@ -23,3 +23,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("gotoAEUrl", (route)=>{
+  cy.visit(`https://www.automationexercise.com${route}`)
+})
+
+Cypress.Commands.add("allProducts", ()=>{
+  cy.get("h2.title").should("exist").should("have.text", "All Products");
+  cy.get(".product-image-wrapper").its("length").should("be.gt", 0);
+})
+
+Cypress.Commands.add("randomNum", (number)=>{
+  let randomNum = Math.floor(Math.random() * number);
+  return randomNum
+})
