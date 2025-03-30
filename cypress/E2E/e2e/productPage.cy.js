@@ -6,12 +6,13 @@ describe('Product Page', () => {
     cy.get("@allProducts").then((allProducts)=>{
       const numProducts = allProducts.length;
       cy.randomNum(numProducts).then((randomNum)=>{
-        cy.wrap(allProducts).get(".productinfo h2").eq(randomNum).should("exist").invoke("text").as("productPrice");
-        cy.wrap(allProducts).get(".productinfo p").eq(randomNum).should("exist").invoke("text").as("productName");
-        cy.wrap(allProducts).get(".productinfo a").eq(randomNum).should("have.text", "Add to cart");
-        cy.wrap(allProducts).get(".choose").eq(randomNum).contains("View Product").click();
+        cy.wrap(allProducts).find(".productinfo h2").eq(randomNum).should("exist").invoke("text").as("productPrice");
+        cy.wrap(allProducts).find(".productinfo p").eq(randomNum).should("exist").invoke("text").as("productName");
+        cy.wrap(allProducts).find(".productinfo a").eq(randomNum).should("have.text", "Add to cart");
+        cy.wrap(allProducts).find(".choose").eq(randomNum).contains("View Product").click();
       });
     });
+    cy.location("pathname").should("contain", "/product_details");
 
     // Validate product detail information
     cy.get("@productPrice").then((priceProductList)=>{
