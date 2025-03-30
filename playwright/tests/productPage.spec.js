@@ -13,6 +13,8 @@ test('Test case 2: View all products in product page and verify product informat
   const productName = await allProducts.locator(".productinfo p").nth(randomIndex).textContent();
   await expect(allProducts.locator(".productinfo a").nth(randomIndex)).toHaveText("Add to cart");
   await page.getByText("View Product").nth(randomIndex).click();
+
+  await expect(page).toHaveURL(/\/product_details\/\d/);
   // validate product detail information
   await expect(page.locator(".product-information span span")).toHaveText(productPrice);
   await expect(page.locator(".product-information h2")).toHaveText(productName);

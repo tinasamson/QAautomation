@@ -17,7 +17,6 @@ describe('Product Page', () => {
     // Validate product detail information
     cy.get("@productPrice").then((priceProductList)=>{
       cy.get(".product-information span span").invoke("text").then((priceProductDetail)=>{
-        cy.log(priceProductDetail);
         expect(priceProductList).to.eq(priceProductDetail)
       });
     });
