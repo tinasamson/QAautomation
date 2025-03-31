@@ -12,7 +12,7 @@ class ProductPage:
     self.driver.get("https://www.automationexercise.com/products")
     assert self.driver.find_elements(By.CSS_SELECTOR, "h2.title")[-1].text, "All Products"
     totalProducts = len(self.driver.find_elements(By.CSS_SELECTOR, ".product-image-wrapper"))
-    randomIndex = random.randrange(3, totalProducts)
+    randomIndex = random.randrange(0, totalProducts)
     assert totalProducts > 0
     productPrice = self.driver.find_elements(By.CSS_SELECTOR, ".productinfo h2")[randomIndex].text
     productName = self.driver.find_elements(By.CSS_SELECTOR, ".productinfo p")[randomIndex].text
@@ -34,3 +34,8 @@ class ProductPage:
     for item in productDetail:
       assert item.text, productInfo[index]
       index += 1
+
+    # assert self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[0], "Category:"
+    # assert self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[1], "Availability"
+    # assert self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[2], "Condition"
+    # assert self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[3], "Brand"
