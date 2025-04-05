@@ -23,3 +23,38 @@
 4. Click on a random category
 5. Verify that user navigated to that category page
 6. Verify that all products are equal or more than all products of that category
+
+### Test case 4: Filter products by brand
+1. Go to the product page
+2. Verify that all products are visible
+3. Verify that the brand filter exist
+4. Click on a random brand
+5. Verify that user navigated to that brand page
+6. Verify the amount of product
+7. Click on a random product
+8. Verify the brand information
+
+### Test Case 5: Search for a product
+1. Go to the product page
+2. Verify that all products are visible
+3. Search for a product
+4. Verify that 'SEARCHED PRODUCTS' is visible
+5. Verify that all products related to the search are visible
+
+### Test Case 6: Add products to cart
+1. Go to a product detail page
+2. Add product to cart
+3. Click on te "continue shopping" button
+4. Go to the product list page
+5. Add random product to cart
+6. Click on cart button
+7. Verify that both product are added to cart
+8. Verify products information
+
+### Test Case 7: Delete products from cart
+1. Go to a product detail page
+2. Add product to cart
+3. Click on cart button
+4. Verify product is added to cart
+5. Delete product from cart
+6. Verify product is deleted
