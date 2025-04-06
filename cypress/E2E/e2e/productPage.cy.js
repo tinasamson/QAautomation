@@ -64,4 +64,44 @@ describe('Product Page', () => {
       });
     });
   });
+
+  it("Test case 4: Filter products by brand", ()=>{
+    cy.get(".brands_products").should("exist").and("not.be.empty");
+    cy.get(".brands_products h2").should("have.text", "Brands");
+    cy.get(".brands_products li a").as("brandFilters");
+    cy.get("@brandFilters").then((brands)=>{
+      cy.randomNum(brands.length).then((randomIndex)=>{
+        cy.wrap(brands).eq(randomIndex).then((brand)=>{
+          let nameBrand = brand.text();
+          cy.log(nameBrand);
+          cy.log(nameBrand.split(")"));
+
+          cy.wrap(nameBrand.split(")")[1]).as("brandName");
+        })
+        cy.wrap(brands).find("span").eq(randomIndex).invoke("text").then((brandProducts)=>{
+          let numProd = Number(brandProducts.slice(1, brandProducts.length-1));
+          cy.wrap(numProd).as("numProdBrand");
+        });
+        cy.wrap(brands).eq(randomIndex).click();
+      });
+    });
+    cy.location("pathname").should("contain", "brand_products/");
+    cy.get("@brandName").then((brandName)=>{
+      cy.get("h2.title").should("contain", brandName);
+    });
+    cy.get(".product-image-wrapper").then((products)=>{
+      cy.get("@numProdBrand").then((numProdBrand)=>{
+        expect(products.length).to.equal(numProdBrand);
+      });
+      cy.randomNum(products.length).then((randomIndex)=>{
+        cy.wrap(products).eq(randomIndex).contains("View Product").click();
+      });
+    });
+    cy.location("pathname").should("contain", "/product_details");
+    cy.get("@brandName").then((brandName)=>{
+      cy.get(".product-information p").last().invoke("text").then((brandInfo)=>{
+        expect(brandInfo).to.contain(brandName);
+      });
+    });
+  });
 });
