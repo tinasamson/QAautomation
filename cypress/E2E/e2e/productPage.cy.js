@@ -73,9 +73,6 @@ describe('Product Page', () => {
       cy.randomNum(brands.length).then((randomIndex)=>{
         cy.wrap(brands).eq(randomIndex).then((brand)=>{
           let nameBrand = brand.text();
-          cy.log(nameBrand);
-          cy.log(nameBrand.split(")"));
-
           cy.wrap(nameBrand.split(")")[1]).as("brandName");
         })
         cy.wrap(brands).find("span").eq(randomIndex).invoke("text").then((brandProducts)=>{
@@ -101,6 +98,20 @@ describe('Product Page', () => {
     cy.get("@brandName").then((brandName)=>{
       cy.get(".product-information p").last().invoke("text").then((brandInfo)=>{
         expect(brandInfo).to.contain(brandName);
+      });
+    });
+  });
+
+  it("Test case 5: Search for a product", ()=>{
+    const searchText = "jeans";
+    cy.get("input#search_product").type(searchText);
+    cy.get("button#submit_search").click();
+    cy.get("h2.title").should("have.text", "Searched Products");
+    cy.location("search").should("contain", searchText);
+    cy.get(".product-image-wrapper").as("productItems");
+    cy.get("@productItems").each((item)=>{
+      cy.wrap(item).find(".productinfo p").invoke("text").then((productName)=>{
+        expect(productName.toLowerCase()).to.contain(searchText);
       });
     });
   });
