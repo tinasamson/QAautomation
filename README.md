@@ -41,13 +41,13 @@
 4. Verify that 'SEARCHED PRODUCTS' is visible
 5. Verify that all products related to the search are visible
 
-### Test Case 6: Add product from product list page to cart
-1. Go to the product list page
-2. Add random product to cart
-3. Click on the "continue shopping" button
-4. Click on cart button
-5. Verify that product is added to cart
-6. Verify product information
+### Test Case 6: Delete products from cart
+1. Go to a product detail page
+2. Add product to cart
+3. Click on cart button
+4. Verify product is added to cart
+5. Delete product from cart
+6. Verify product is deleted
 
 ### Test case 7: Add multiple items of same product from product detail page to cart
 1. Go to a product detail page
@@ -57,10 +57,13 @@
 5. Verify that both product are added to cart
 6. Verify products information
 
-### Test Case 7: Delete products from cart
-1. Go to a product detail page
-2. Add product to cart
-3. Click on cart button
-4. Verify product is added to cart
-5. Delete product from cart
-6. Verify product is deleted
+### Test Case 8: Add multiple product from product list page to cart
+1. Go to the product list page
+2. Add random product to cart
+3. Click on the "continue shopping" button
+4. Click on cart button
+5. Add another random product to cart
+6. Click on the "continue shopping" button
+7. Click on cart button
+8. Verify that products are added to cart
+9. Verify product information
