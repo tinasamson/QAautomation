@@ -15,7 +15,7 @@ describe('Product Page', () => {
         cy.wrap(allProducts).find(".choose").eq(randomNum).contains("View Product").click();
       });
     });
-    cy.location("pathname").should("contain", "/product_details");
+    cy.validateAEUrl("/product_details");
 
     // Validate product detail information
     cy.get("@productPrice").then((priceProductList)=>{
@@ -56,7 +56,7 @@ describe('Product Page', () => {
         });
       });
     });
-    cy.location('pathname').should('contain', '/category_products');
+    cy.validateAEUrl("/category_products");
     cy.get(".product-image-wrapper").its("length").as("filterProducts", { type: 'static' });
     cy.get("@allProducts").then((allProducts)=>{
       cy.get("@filterProducts").then((filterProducts)=>{
@@ -82,7 +82,7 @@ describe('Product Page', () => {
         cy.wrap(brands).eq(randomIndex).click();
       });
     });
-    cy.location("pathname").should("contain", "brand_products/");
+    cy.validateAEUrl("brand_products/");
     cy.get("@brandName").then((brandName)=>{
       cy.get("h2.title").should("contain", brandName);
     });
@@ -94,7 +94,7 @@ describe('Product Page', () => {
         cy.wrap(products).eq(randomIndex).contains("View Product").click();
       });
     });
-    cy.location("pathname").should("contain", "/product_details");
+    cy.validateAEUrl("/product_details");
     cy.get("@brandName").then((brandName)=>{
       cy.get(".product-information p").last().invoke("text").then((brandInfo)=>{
         expect(brandInfo).to.contain(brandName);
