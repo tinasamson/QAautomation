@@ -42,7 +42,7 @@
 5. Verify that all products related to the search are visible
 
 ### Test Case 6: Delete products from cart
-1. Go to a product detail page
+1. Go to the product list page
 2. Add product to cart
 3. Click on cart button
 4. Verify product is added to cart
@@ -52,9 +52,8 @@
 ### Test case 7: Add multiple items of same product from product detail page to cart
 1. Go to a product detail page
 2. Add product to cart
-3. Click on the "continue shopping" button
-4. Click on cart button
-5. Verify that both product are added to cart
+3. Click on the "View cart" link
+5. Verify the product is added to cart
 6. Verify products information
 
 ### Test Case 8: Add multiple product from product list page to cart
