@@ -36,6 +36,49 @@ describe('Shopping Cart', () => {
     });
   });
 
+  it("test case 7: Add multiple items of same product from product detail page to cart", ()=>{
+    cy.gotoAEUrl("/product_details/18");
+    const quantityProd = 3;
+    cy.get(".product-information").as("productDetails");
+    cy.get("@productDetails").then((productDetails)=>{
+      cy.wrap(productDetails).find("h2").invoke("text").as("productDetailName", { type: "static" });
+      cy.wrap(productDetails).find("p").first().invoke("text").as("productDetailCategory", { type: "static" });
+      cy.wrap(productDetails).find("span span").invoke("text").as("productDetailPrice", { type: "static" });
+      cy.wrap(productDetails).find("input#quantity").clear();
+      cy.wrap(productDetails).find("input#quantity").type(quantityProd.toString());
+      cy.wrap(productDetails).find("button.cart").click();
+    });
+    cy.get("#cartModal .modal-body a").should("exist").and("be.visible");
+    cy.get("#cartModal .modal-body a").click();
+    cy.validateAEUrl("/view_cart");
+    cy.get("#cart_info_table tbody tr").eq(0).then((productCartOverview)=>{
+      cy.wrap(productCartOverview).find(".cart_total_price").invoke("text").as("productCartTotalPrice", { type: "static" });
+      cy.get("@productDetailName").then((productName)=>{
+        cy.wrap(productCartOverview).find(".cart_description h4").invoke("text").then((overviewName)=>{
+          expect(overviewName).to.eq(productName);
+        });
+      });
+      cy.get("@productDetailCategory").then((productCategory)=>{
+        cy.wrap(productCartOverview).find(".cart_description p").invoke("text").then((overviewCategory)=>{
+          expect(productCategory).to.contain(overviewCategory);
+        });
+      });
+      cy.wrap(productCartOverview).find(".cart_quantity").invoke("text").then((overviewQuantity)=>{
+        expect(overviewQuantity.trim()).to.eq(quantityProd.toString());
+      })
+      cy.get("@productDetailPrice").then((productPrice)=>{
+        const numDetailPrice = Number(productPrice.split(" ")[1]);
+        cy.wrap(productCartOverview).find(".cart_price p").invoke("text").then((overviewPrice)=>{
+          expect(overviewPrice).to.eq(productPrice);
+        });
+        cy.get("@productCartTotalPrice").then((cartTotalPrice)=>{
+          const numTotalPrice = Number(cartTotalPrice.split(" ")[1]);
+          expect(numTotalPrice).to.eq(numDetailPrice*quantityProd);
+        });
+      });
+    });
+  });
+
   it("test case 8: Add multiple product from product list page to cart", ()=>{
     cy.gotoAEUrl("/products");
     cy.get(".product-image-wrapper").as("allProducts");
