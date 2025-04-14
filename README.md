@@ -56,11 +56,10 @@
 5. Verify the product is added to cart
 6. Verify products information
 
-### Test Case 8: Add multiple product from product list page to cart
+### Test Case 8: Add multiple products from product list page to cart
 1. Go to the product list page
 2. Add random product to cart
 3. Click on the "continue shopping" button
-4. Click on cart button
 5. Add another random product to cart
 6. Click on the "continue shopping" button
 7. Click on cart button
