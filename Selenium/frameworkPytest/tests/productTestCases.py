@@ -10,7 +10,7 @@ class ProductPage:
 
   def test_case_2_product_list_verify_product_info(self):
     self.driver.get("https://www.automationexercise.com/products")
-    assert self.driver.find_elements(By.CSS_SELECTOR, "h2.title")[-1].text, "All Products"
+    assert self.driver.find_element(By.CSS_SELECTOR, "h2.title").text, "All Products"
     totalProducts = len(self.driver.find_elements(By.CSS_SELECTOR, ".product-image-wrapper"))
     randomIndex = random.randrange(0, totalProducts)
     assert totalProducts > 0
