@@ -7,3 +7,4 @@ def test_product_list_detail():
   driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
   product_page = ProductPage(driver)
   product_page.test_case_2_product_list_verify_product_info()
+  product_page.test_case_3_filter_products_by_category()
