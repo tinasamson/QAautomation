@@ -51,6 +51,9 @@ class ProductPage:
     categoryName = categories[randomCategory].text
     idCategoryName = categoryName[0] + categoryName[1:].lower()
     categories[randomCategory].click()
+
+    wait = WebDriverWait(self.driver, 10)
+    wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#" + idCategoryName + " .panel-body ul li a")))
     filters = self.driver.find_elements(By.CSS_SELECTOR, "#" + idCategoryName + " .panel-body ul li a")
     totalFilters = len(filters)
     randomFilter = random.randrange(0, totalFilters-1)
