@@ -5,7 +5,9 @@
 2. Enter a correct email and password
 3. Click on the login button
 4. Verify that in the menu "logged in as testOps" exist
-5. Verify that the logout button exist
+5. Verify that the logout button exist    
+
+See [video tutorials](https://youtube.com/playlist?list=PLKaZLlbGdwQuXDHceH1ghpMYj53V6sYpD&si=kEqJrRVXbtDvGJMm) on Youtube
 
 ### Test Case 2: View all products in product page and verify product information in product detail page 
 1. Go to the product page
@@ -16,6 +18,8 @@
 6. Validate that user navegated to the product detail page
 7. Validate the product information
 
+See [video tutorials](https://youtube.com/playlist?list=PLKaZLlbGdwQvPjrIzDi11s_-3Ko20xmyX&si=gaJTg4vJ_KNP9-yt) on Youtube
+
 ### Test Case 3: Filter with a category the product list page
 1. Go to the product page
 2. Verify that all products are visible
@@ -23,6 +27,8 @@
 4. Click on a random category
 5. Verify that user navigated to that category page
 6. Verify that all products are equal or more than all products of that category
+
+See [video tutorials](https://youtube.com/playlist?list=PLKaZLlbGdwQs863z3dWRDs0VAW8DidPD8&si=Hcf_ud2EDuJVdbab) on Youtube
 
 ### Test case 4: Filter products by brand
 1. Go to the product page
@@ -33,6 +39,8 @@
 6. Verify the amount of product
 7. Click on a random product
 8. Verify the brand information
+
+See [video tutorials](https://youtube.com/playlist?list=PLKaZLlbGdwQs_8CYnTNGl1IrqGbFpJV1a&si=ECbrKz1OAol5E6sv) on Youtube
 
 ### Test Case 5: Search for a product
 1. Go to the product page
