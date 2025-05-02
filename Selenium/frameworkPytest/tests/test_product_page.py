@@ -37,3 +37,10 @@ def test_case_4_filter_products_by_brands(setup):
   product_detail = product_page.viewProduct(randomIndex)
   product_detail.waitUrlToLoad(5, "/product_details/")
   product_detail.validateBrandName(brandName)
+
+def test_case_5_search_for_product(setup):
+  searchText = "jeans"
+  product_page = setup[0]
+  product_page.searchProduct(searchText)
+  product_page.waitUrlToLoad(5, "products?search=" + searchText)
+  product_page.validateSearch(searchText)

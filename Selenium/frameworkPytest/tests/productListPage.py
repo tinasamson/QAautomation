@@ -60,3 +60,14 @@ class ProductPage(Utils):
   def validateBrandFilter(self, brandName, numBrandProd):
     assert brandName in self.driver.find_element(By.CLASS_NAME, "title").text
     assert len(self.driver.find_elements(By.CLASS_NAME, "product-image-wrapper")) == numBrandProd
+    
+  def searchProduct(self, searchText):
+    self.driver.find_element(By.CSS_SELECTOR, "input#search_product").send_keys(searchText)
+    self.driver.find_element(By.CSS_SELECTOR, "button#submit_search").click()
+
+  def validateSearch(self, searchText):
+    assert self.driver.find_element(By.CLASS_NAME, "title").text == "SEARCHED PRODUCTS"
+    productsTitle = self.driver.find_elements(By.CSS_SELECTOR, ".product-image-wrapper .productinfo p")
+    for title in productsTitle:
+      assert searchText in title.text.lower()
+      
