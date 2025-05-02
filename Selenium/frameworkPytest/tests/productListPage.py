@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from utils.utils import Utils
 
+from tests.productDetailPage import ProductDetailPage
+
 import random
 
 class ProductPage(Utils):
@@ -24,6 +26,7 @@ class ProductPage(Utils):
   
   def viewProduct(self, randomIndex):
     self.driver.find_elements(By.CSS_SELECTOR, ".choose")[randomIndex].click()
+    return ProductDetailPage(self.driver)      # return next page object
 
   def getCategory(self):
     self.driver.find_element(By.CSS_SELECTOR, ".category-products").is_displayed()
@@ -43,3 +46,17 @@ class ProductPage(Utils):
   def validateTotalCategoryProducts(self, totalProducts):
     totalFilterProducts = len(self.driver.find_elements(By.CSS_SELECTOR, ".product-image-wrapper"))
     assert totalProducts >= totalFilterProducts
+
+  def getBrand(self):
+    self.driver.find_element(By.CSS_SELECTOR, ".brands_products").is_displayed()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".brands_products h2").text == "BRANDS"
+    brandFilters = self.driver.find_elements(By.CSS_SELECTOR, ".brands_products li a")
+    randomBrand = random.randrange(0, len(brandFilters)-1)
+    brandName = brandFilters[randomBrand].text.split(")")[1]
+    numBrandProd = int(brandFilters[randomBrand].text[1])
+    brandFilters[randomBrand].click()
+    return brandName.strip(), numBrandProd, randomBrand
+  
+  def validateBrandFilter(self, brandName, numBrandProd):
+    assert brandName in self.driver.find_element(By.CLASS_NAME, "title").text
+    assert len(self.driver.find_elements(By.CLASS_NAME, "product-image-wrapper")) == numBrandProd

@@ -23,3 +23,7 @@ class ProductDetailPage(Utils):
     # assert self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[1], "Availability"
     # assert self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[2], "Condition"
     # assert self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[3], "Brand"
+
+  def validateBrandName(self, brandName):
+    brandInfo = self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[-1].text
+    assert brandName in brandInfo.upper()
