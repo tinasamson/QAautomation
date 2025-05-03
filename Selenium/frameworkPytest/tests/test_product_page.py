@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from tests.productListPage import ProductPage
 
-import random
 import pytest
 
 @pytest.fixture()
@@ -14,8 +13,9 @@ def setup(driverBrowserInstance):
 
 def test_case_2_product_list_verify_product_info(setup):
   product_page, totalProducts = setup
-  randomIndex = random.randrange(0, totalProducts-1)
-  productName, productPrice = product_page.validateProductInfo(randomIndex)
+  randomIndex = product_page.randomNum(totalProducts)
+  productName, productPrice = product_page.getProductNamePrice(randomIndex)
+  product_page.validateProductInfo(randomIndex)
   product_detail = product_page.viewProduct(randomIndex)
   product_detail.waitUrlToLoad(5, "/product_details/")
   product_detail.validateProductDetailInfo(productName, productPrice)
@@ -30,10 +30,10 @@ def test_case_3_filter_products_by_category(setup):
 
 def test_case_4_filter_products_by_brands(setup):
   product_page = setup[0]
-  brandName, numBrandProd, randomBrand = product_page.getBrand()
+  brandName, numBrandProd = product_page.getBrand()
   product_page.waitUrlToLoad(5, "/brand_products")
   product_page.validateBrandFilter(brandName, numBrandProd)
-  randomIndex = random.randrange(0, numBrandProd-1)
+  randomIndex = product_page.randomNum(numBrandProd)
   product_detail = product_page.viewProduct(randomIndex)
   product_detail.waitUrlToLoad(5, "/product_details/")
   product_detail.validateBrandName(brandName)

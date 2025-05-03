@@ -3,8 +3,6 @@ from utils.utils import Utils
 
 from tests.productDetailPage import ProductDetailPage
 
-import random
-
 class ProductPage(Utils):
   def __init__(self, driver):
     super().__init__(driver)
@@ -16,13 +14,16 @@ class ProductPage(Utils):
     assert totalProducts > 0
     return totalProducts
   
-  def validateProductInfo(self, randomIndex):
+  def getProductNamePrice(self, randomIndex):
     productPrice = self.driver.find_elements(By.CSS_SELECTOR, ".productinfo h2")[randomIndex].text
     productName = self.driver.find_elements(By.CSS_SELECTOR, ".productinfo p")[randomIndex].text
+    return productName, productPrice
+
+  
+  def validateProductInfo(self, randomIndex):
     assert self.driver.find_elements(By.CSS_SELECTOR, ".productinfo a")[randomIndex].text, "Add to cart"
     viewProductBtn = self.driver.find_elements(By.CSS_SELECTOR, ".choose")[randomIndex]
     assert viewProductBtn.text, "View Product"
-    return productName, productPrice
   
   def viewProduct(self, randomIndex):
     self.driver.find_elements(By.CSS_SELECTOR, ".choose")[randomIndex].click()
@@ -31,7 +32,7 @@ class ProductPage(Utils):
   def getCategory(self):
     self.driver.find_element(By.CSS_SELECTOR, ".category-products").is_displayed()
     categories = self.driver.find_elements(By.CSS_SELECTOR, '.category-products [data-toggle="collapse"]')
-    randomCategory = random.randrange(0, len(categories)-1)
+    randomCategory = super().randomNum(categories)
     categoryName = categories[randomCategory].text
     idCategoryName = categoryName[0] + categoryName[1:].lower()
     categories[randomCategory].click()
@@ -40,7 +41,7 @@ class ProductPage(Utils):
   def getCategoryFilters(self, idCategoryName):
     filters = self.driver.find_elements(By.CSS_SELECTOR, "#" + idCategoryName + " .panel-body ul li a")
     totalFilters = len(filters)
-    randomFilter = random.randrange(0, totalFilters-1)
+    randomFilter = super().randomNum(totalFilters)
     filters[randomFilter].click()
 
   def validateTotalCategoryProducts(self, totalProducts):
@@ -51,11 +52,11 @@ class ProductPage(Utils):
     self.driver.find_element(By.CSS_SELECTOR, ".brands_products").is_displayed()
     assert self.driver.find_element(By.CSS_SELECTOR, ".brands_products h2").text == "BRANDS"
     brandFilters = self.driver.find_elements(By.CSS_SELECTOR, ".brands_products li a")
-    randomBrand = random.randrange(0, len(brandFilters)-1)
+    randomBrand = super().randomNum(brandFilters)
     brandName = brandFilters[randomBrand].text.split(")")[1]
     numBrandProd = int(brandFilters[randomBrand].text[1])
     brandFilters[randomBrand].click()
-    return brandName.strip(), numBrandProd, randomBrand
+    return brandName.strip(), numBrandProd
   
   def validateBrandFilter(self, brandName, numBrandProd):
     assert brandName in self.driver.find_element(By.CLASS_NAME, "title").text
