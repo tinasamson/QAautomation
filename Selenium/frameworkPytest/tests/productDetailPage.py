@@ -27,3 +27,20 @@ class ProductDetailPage(Utils):
   def validateBrandName(self, brandName):
     brandInfo = self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[-1].text
     assert brandName in brandInfo.upper()
+
+  def getProductNamePrice(self):
+    productDetailName = self.driver.find_element(By.CSS_SELECTOR, ".product-information h2").text
+    productDetailPrice = self.driver.find_element(By.CSS_SELECTOR, ".product-information span span").text
+    return productDetailName, productDetailPrice
+  
+  def getCategory(self):
+    productDetailCategory = self.driver.find_elements(By.CSS_SELECTOR, ".product-information p")[0].text
+    return productDetailCategory
+  
+  def addMultipleItems(self, quantity):
+    productDetailQuantity = self.driver.find_element(By.CSS_SELECTOR, ".product-information input#quantity")
+    productDetailQuantity.clear()
+    productDetailQuantity.send_keys(str(quantity))
+
+  def addToCart(self):
+    self.driver.find_element(By.CSS_SELECTOR, "button.cart").click()

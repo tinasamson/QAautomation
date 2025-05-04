@@ -32,7 +32,7 @@ class ProductPage(Utils):
   def getCategory(self):
     self.driver.find_element(By.CSS_SELECTOR, ".category-products").is_displayed()
     categories = self.driver.find_elements(By.CSS_SELECTOR, '.category-products [data-toggle="collapse"]')
-    randomCategory = super().randomNum(categories)
+    randomCategory = super().randomNum(len(categories))
     categoryName = categories[randomCategory].text
     idCategoryName = categoryName[0] + categoryName[1:].lower()
     categories[randomCategory].click()
@@ -52,7 +52,7 @@ class ProductPage(Utils):
     self.driver.find_element(By.CSS_SELECTOR, ".brands_products").is_displayed()
     assert self.driver.find_element(By.CSS_SELECTOR, ".brands_products h2").text == "BRANDS"
     brandFilters = self.driver.find_elements(By.CSS_SELECTOR, ".brands_products li a")
-    randomBrand = super().randomNum(brandFilters)
+    randomBrand = super().randomNum(len(brandFilters))
     brandName = brandFilters[randomBrand].text.split(")")[1]
     numBrandProd = int(brandFilters[randomBrand].text[1])
     brandFilters[randomBrand].click()

@@ -12,8 +12,16 @@ class Cart(Utils):
     super().waitVisibilityElement(2, (By.CLASS_NAME, "add-to-cart"))
     productInfo.find_element(By.CLASS_NAME, "add-to-cart").click()
 
+  def deleteProductFromCart(self):
+    self.driver.find_element(By.CSS_SELECTOR, "td.cart_delete").click()
+
   def confirmModalContinueShopping(self):
+    super().waitVisibilityElement(2, (By.CSS_SELECTOR, "#cartModal .modal-confirm"))
     self.driver.find_element(By.CSS_SELECTOR, '#cartModal .modal-confirm [data-dismiss="modal"]').click()
+
+  def confirmModalViewCart(self):
+    super().waitVisibilityElement(2, (By.CSS_SELECTOR, "#cartModal .modal-confirm"))
+    self.driver.find_element(By.CSS_SELECTOR, "#cartModal .modal-body a").click()
 
   def goToCart(self):
     self.driver.find_element(By.CSS_SELECTOR, '.shop-menu ul li a[href*="cart"]').click()
@@ -23,13 +31,21 @@ class Cart(Utils):
     cartProductPrice = self.driver.find_element(By.CSS_SELECTOR, ".cart_price p").text
     return cartProductName, cartProductPrice
   
-  def validateCartProductNamePrice(self, productName, productPrice, cartProductName, cartProductPrice):
-    assert productName == cartProductName
-    assert productPrice == cartProductPrice
-
-  def deleteProductFromCart(self):
-    self.driver.find_element(By.CSS_SELECTOR, "td.cart_delete").click()
+  def getCartCategory(self):
+    cartCategory = self.driver.find_element(By.CSS_SELECTOR, ".cart_description p").text
+    return cartCategory
+  
+  def getCartProductQuantity(self):
+    cartQuantity = self.driver.find_element(By.CSS_SELECTOR, ".cart_quantity").text
+    return int(cartQuantity.strip())
+  
+  def validateCartInfo(self, productInfo, cartInfo):
+    assert productInfo == cartInfo
 
   def validateEmptyCart(self):
     super().waitTextPresentElement(5, (By.CSS_SELECTOR, ".cart_info p"), "Cart")
     assert "Cart is empty" in self.driver.find_element(By.CSS_SELECTOR, ".cart_info p").text
+
+  def validateTotalPrice(self, productPrice, quantity=1):
+    cartTotalPrice = self.driver.find_element(By.CSS_SELECTOR, ".cart_total_price").text
+    assert int(productPrice.split(" ")[1])*quantity == int(cartTotalPrice.split(" ")[1])

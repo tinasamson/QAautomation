@@ -61,10 +61,11 @@ See [video tutorials](https://youtube.com/playlist?list=PLKaZLlbGdwQs_8CYnTNGl1I
 
 ### Test case 7: Add multiple items of same product from product detail page to cart
 1. Go to a product detail page
-2. Add product to cart
+2. Add multiple items of same product to cart
 3. Click on the "View cart" link
-5. Verify the product is added to cart
-6. Verify products information
+4. Verify the product is added to cart
+5. Verify products information
+6. Validate total product price
 
 ### Test Case 8: Add multiple products from product list page to cart
 1. Go to the product list page
