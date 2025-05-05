@@ -13,7 +13,6 @@ def test_case_6_delete_product_from_cart(driverBrowserInstance):
     shopping_cart = Cart(driver)
     shopping_cart.addProductToCart(productName)
     shopping_cart.confirmModalContinueShopping()
-    shopping_cart.waitVisibilityElement(2, (By.CSS_SELECTOR, '.shop-menu ul li a[href*="cart"]'))
     shopping_cart.goToCart()
     shopping_cart.waitVisibilityElement(2, (By.CSS_SELECTOR, "#cart_info"))
     cartProductName, cartProductPrice = shopping_cart.getCartProductNamePrice()
@@ -43,5 +42,32 @@ def test_case_7_add_multiple_items_of_product_to_cart(driverBrowserInstance):
     cartInfo = [cartName, cartProductPrice, cartCategory , cartProductQuantity]
     for i in range(len(cartInfo)):
         shopping_cart.validateCartInfo(productDetailInfo[i], cartInfo[i])
-    shopping_cart.validateTotalPrice(productDetailPrice, productQuantity)
-    
+    cartTotalPrice = shopping_cart.getCartTotalPrice()
+    shopping_cart.validateTotalPrice(productDetailPrice, cartTotalPrice, productQuantity)
+
+def test_case_8_Add_multiple_products_to_cart(driverBrowserInstance):
+    driver = driverBrowserInstance
+    product_page = ProductPage(driver)
+    product_page.getAEUrl("/products")
+    totalProducts = product_page.validateAllProducts()
+    randomList = product_page.randomNum(totalProducts, 2)
+    dict = {}
+    for i in range(len(randomList)):
+        productName = f"productName{i+1}"
+        productPrice = f"productPrice{i+1}"
+        dict[productName], dict[productPrice] = product_page.getProductNamePrice(randomList[i])
+    shopping_cart = Cart(driver)
+    shopping_cart.addProductToCart(dict["productName1"])
+    shopping_cart.confirmModalContinueShopping()
+    shopping_cart.addProductToCart(dict["productName2"])
+    shopping_cart.confirmModalContinueShopping()
+    shopping_cart.goToCart()
+    for i in range(len(randomList)):
+        cartProductName = f"cartProductName{i+1}"
+        cartProductPrice = f"cartProductPrice{i+1}"
+        cartTotalPrice = f"cartTotalPrice{i+1}"
+        dict[cartProductName], dict[cartProductPrice] = shopping_cart.getCartProductNamePrice(i)
+        dict[cartTotalPrice] = shopping_cart.getCartTotalPrice(i)
+        shopping_cart.validateCartInfo(dict[f"productName{i+1}"].replace(" ", ""), dict[cartProductName].replace(" ", ""))
+        shopping_cart.validateCartInfo(dict[f"productPrice{i+1}"], dict[cartProductPrice])
+        shopping_cart.validateTotalPrice(dict[cartProductPrice], dict[cartTotalPrice])

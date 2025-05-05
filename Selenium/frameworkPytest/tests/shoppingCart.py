@@ -24,11 +24,12 @@ class Cart(Utils):
     self.driver.find_element(By.CSS_SELECTOR, "#cartModal .modal-body a").click()
 
   def goToCart(self):
+    super().waitVisibilityElement(2, (By.CSS_SELECTOR, '.shop-menu ul li a[href*="cart"]'))
     self.driver.find_element(By.CSS_SELECTOR, '.shop-menu ul li a[href*="cart"]').click()
 
-  def getCartProductNamePrice(self):
-    cartProductName = self.driver.find_element(By.CSS_SELECTOR, ".cart_description h4").text
-    cartProductPrice = self.driver.find_element(By.CSS_SELECTOR, ".cart_price p").text
+  def getCartProductNamePrice(self, row=0):
+    cartProductName = self.driver.find_elements(By.CSS_SELECTOR, ".cart_description h4")[row].text
+    cartProductPrice = self.driver.find_elements(By.CSS_SELECTOR, ".cart_price p")[row].text
     return cartProductName, cartProductPrice
   
   def getCartCategory(self):
@@ -39,6 +40,10 @@ class Cart(Utils):
     cartQuantity = self.driver.find_element(By.CSS_SELECTOR, ".cart_quantity").text
     return int(cartQuantity.strip())
   
+  def getCartTotalPrice(self, row=0):
+    cartTotalPrice = self.driver.find_elements(By.CSS_SELECTOR, ".cart_total_price")[row].text
+    return cartTotalPrice
+  
   def validateCartInfo(self, productInfo, cartInfo):
     assert productInfo == cartInfo
 
@@ -46,6 +51,5 @@ class Cart(Utils):
     super().waitTextPresentElement(5, (By.CSS_SELECTOR, ".cart_info p"), "Cart")
     assert "Cart is empty" in self.driver.find_element(By.CSS_SELECTOR, ".cart_info p").text
 
-  def validateTotalPrice(self, productPrice, quantity=1):
-    cartTotalPrice = self.driver.find_element(By.CSS_SELECTOR, ".cart_total_price").text
+  def validateTotalPrice(self, productPrice, cartTotalPrice, quantity=1):
     assert int(productPrice.split(" ")[1])*quantity == int(cartTotalPrice.split(" ")[1])
