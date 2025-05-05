@@ -22,6 +22,10 @@ class Utils:
     wait = WebDriverWait(self.driver, seconds)
     wait.until(EC.text_to_be_present_in_element(locator, text))
 
-  def randomNum(self, totalNum):
-    randomNum = random.randrange(0, totalNum-1)
-    return randomNum
+  def randomNum(self, totalNum, numbers=1):
+    if numbers == 1:
+      randomNum = random.randrange(0, totalNum-1)
+      return randomNum
+    else:
+      randomNumList = random.sample(range(totalNum), numbers)
+      return randomNumList
