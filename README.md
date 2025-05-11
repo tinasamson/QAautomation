@@ -49,15 +49,17 @@ See [video tutorials](https://youtube.com/playlist?list=PLKaZLlbGdwQs_8CYnTNGl1I
 4. Verify that 'SEARCHED PRODUCTS' is visible
 5. Verify that all products related to the search are visible
 
+See [video tutorials](https://youtube.com/playlist?list=PLKaZLlbGdwQvJY6UbMRLCIJlWRZnNtY59&si=xIb_wIxpDLQlA5Mj) on Youtube
+
 ### Test Case 6: Add and Delete one product from cart
 1. Go to the product list page
 2. Verify that all products are visible
 3. Add product to cart
 4. Click on cart button
 5. Verify product is added to cart
-7. Validate product name and price in the cart
-8. Delete product from cart
-9. Verify product is deleted
+6. Validate product name and price in the cart
+7. Delete product from cart
+8. Verify product is deleted
 
 ### Test case 7: Add multiple items of same product from product detail page to cart
 1. Go to a product detail page
