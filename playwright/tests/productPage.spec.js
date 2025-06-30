@@ -22,3 +22,14 @@ customtest('Test case 3: Filter with a category the product list page', async ({
   await waitUrlToLoad(page, 'category_products');
   await productPage.validateTotalCategoryProducts(totalProducts);
 });
+
+customtest('Test case 4: Filter with brand the product list page', async ({page, productPage}) => {
+  const {brandName, numBrandProd} = await productPage.getBrand();
+  await waitUrlToLoad(page, '/brand_products');
+  await productPage.validateBrandFilter(brandName, numBrandProd);
+  const randomIndex = await randomNum(numBrandProd);
+  await productPage.viewProduct(randomIndex);
+  await waitUrlToLoad(page, '/product_details/');
+  const productDetailPage = new ProductDetailPage(page)
+  await productDetailPage.validateBrandName(brandName);
+});

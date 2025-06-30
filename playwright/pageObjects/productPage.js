@@ -46,4 +46,22 @@ export class ProductPage{
     const filterProducts = await this.page.locator(".product-image-wrapper").count();
     expect(totalProducts).toBeGreaterThanOrEqual(filterProducts);
   }
+
+  async getBrand(){
+    await this.page.locator(".brands_products").isVisible();
+    expect(await this.page.locator(".brands_products h2").textContent()).toEqual("Brands");
+    const brandFilters = this.page.locator(".brands_products li a");
+    const totalBrands = await brandFilters.count();
+    const randomBrand = await randomNum(totalBrands);
+    const brandFilterText = await brandFilters.nth(randomBrand).textContent()
+    const brandName = brandFilterText.split(")")[1].trim();
+    const numBrandProd = parseInt(brandFilterText[2]);
+    brandFilters.nth(randomBrand).click();
+    return {brandName, numBrandProd}
+  }
+
+  async validateBrandFilter(brandName, numBrandProd){
+    expect(await this.page.locator(".title").textContent()).toContain(brandName);
+    expect(await this.page.locator(".product-image-wrapper").count()).toEqual(numBrandProd);
+  }
 }
