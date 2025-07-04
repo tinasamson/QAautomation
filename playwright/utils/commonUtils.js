@@ -9,7 +9,6 @@ export async function gotoAEUrl(page, route) {
   await page.goto(`https://www.automationexercise.com${route}`);
 }
 
-export async function waitUrlToLoad(page, route) {
-  const regexPath = new RegExp(`${route}`, "d");
-  await expect(page).toHaveURL(regexPath);
+export async function waitUrlToLoad(page, regex) {
+  await expect(page).toHaveURL(regex);
 }

@@ -7,8 +7,8 @@ export class ProductPage{
   }
   async validateAllProducts(){
     const totalProducts = await this.page.locator(".product-image-wrapper").count();
-    await expect(this.page.locator("h2.title")).toHaveText("All Products");
-    await expect(totalProducts).toBeGreaterThan(0);
+    expect(await this.page.locator("h2.title")).toHaveText("All Products");
+    expect(totalProducts).toBeGreaterThan(0);
   }
 
   async getProductNamePrice(randomIndex){
@@ -63,5 +63,20 @@ export class ProductPage{
   async validateBrandFilter(brandName, numBrandProd){
     expect(await this.page.locator(".title").textContent()).toContain(brandName);
     expect(await this.page.locator(".product-image-wrapper").count()).toEqual(numBrandProd);
+  }
+
+  async searchProduct(searchText){
+    await this.page.locator("input#search_product").fill(searchText);
+    await this.page.locator("button#submit_search").click();
+  }
+
+  async validateSearchProduct(searchText){
+    expect(await this.page.locator(".title").textContent()).toEqual("Searched Products");
+    const productTitle = await this.page.locator(".product-image-wrapper .productinfo p").all();
+    console.log(productTitle);
+    for(const title of productTitle) {
+      const textTitle = await title.textContent();
+      expect(textTitle.toLowerCase()).toContain(searchText);
+    }
   }
 }
