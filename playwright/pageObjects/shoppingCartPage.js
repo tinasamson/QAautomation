@@ -15,15 +15,20 @@ export class ShoppingCartPage {
     await this.page.locator('#cartModal .modal-confirm [data-dismiss="modal"]').click();
   }
 
+  async confirmModalViewCart(){
+    await this.page.locator("#cartModal .modal-body a").click();
+  }
+
   async goToCart(){
     expect(await this.page.locator(".shop-menu")).toBeVisible();
     await this.page.locator('.shop-menu ul li a[href*="cart"]').click();
   }
 
   async getCartProductNamePrice(){
-    const cartProductName = await this.page.locator(".cart_description h4").textContent();
+    const cartProductName = await this.page.locator(".cart_description h4").textContent()
+    const cartProdName = cartProductName.replaceAll("  ", " ");
     const cartProductPrice = await this.page.locator(".cart_price p").textContent();
-    return {cartProductName, cartProductPrice};
+    return {cartProdName, cartProductPrice};
   }
 
   async validateCartInfo(productInfo, cartInfo){
@@ -37,4 +42,24 @@ export class ShoppingCartPage {
   async validateEmptyCart(){
     expect(await this.page.locator(".cart_info #empty_cart p").textContent()).toContain("Cart is empty");
   }
+
+  async getCartCategory(){
+    const cartProductCategory = await this.page.locator(".cart_description p").textContent();
+    return cartProductCategory;
+  }
+
+  async getCartProductQuantity(){
+    const cartQuantity = await this.page.locator(".cart_quantity").textContent();
+    return parseInt(cartQuantity.trim());
+  }
+
+  async getCartTotalPrice(){
+    const cartTotalPrice = await this.page.locator(".cart_total_price").textContent();
+    return cartTotalPrice;
+  }
+
+  async validateTotalPrice(productPrice, cartTotalPrice, quantity = 1){
+    expect(parseInt(productPrice.split(" ")[1])*quantity).toEqual(parseInt(cartTotalPrice.split(" ")[1]));
+  }
+
 }

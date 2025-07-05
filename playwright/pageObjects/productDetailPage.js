@@ -24,4 +24,27 @@ export class ProductDetailPage {
   async validateBrandName(brandName) {
     expect(await this.page.locator(".product-information p").last().textContent()).toContain(brandName);
   }
+
+  async getProductNamePrice(){
+    const productDetailName = await this.page.locator(".product-information h2").textContent();
+    const productName = productDetailName.replaceAll("  ", " ");
+    const productDetailPrice = await this.page.locator(".product-information span span").textContent();
+    return {productName, productDetailPrice};
+  }
+
+  async getCategory(){
+    const productDetailCategory = await this.page.locator(".product-information p").first().textContent();
+    const productCategory = productDetailCategory.replaceAll("  ", " ");
+    return productCategory;
+  }
+
+  async addMultipleItems(quantity){
+    const productDetailQuantity = this.page.locator(".product-information input#quantity")
+    await productDetailQuantity.clear();
+    await productDetailQuantity.fill(quantity.toString())
+  }
+
+  async addToCart(){
+    await this.page.locator("button.cart").click();
+  }
 }
