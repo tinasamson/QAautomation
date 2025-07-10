@@ -1,9 +1,18 @@
 {
   "scripts": {
     "cypress:ci:tst": "npx cypress run --config-file cypress.config.js --browser chrome",
-    "cypress:open:tst": "npx cypress open --config-file cypress.config.js --browser chrome"
+    "cypress:open:tst": "npx cypress open --config-file cypress.config.js --browser chrome",
+    "lint": "eslint cypress/**/*.js",
+    "format": "prettier --write ."
   },
   "devDependencies": {
-    "cypress": "^14.1.0"
+    "@eslint/js": "^9.30.1",
+    "cypress": "^14.1.0",
+    "eslint": "^9.30.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-cypress": "^5.1.0",
+    "eslint-plugin-prettier": "^5.5.1",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2"
   }
 }

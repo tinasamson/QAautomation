@@ -23,29 +23,29 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-Cypress.Commands.add("gotoAEUrl", (route)=>{
-  cy.visit(`https://www.automationexercise.com${route}`)
-})
+Cypress.Commands.add('gotoAEUrl', (route) => {
+  cy.visit(`https://www.automationexercise.com${route}`);
+});
 
-Cypress.Commands.add("validateAEUrl", (route)=>{
-  cy.location("pathname").should("contain", `${route}`);
-})
+Cypress.Commands.add('validateAEUrl', (route) => {
+  cy.location('pathname').should('contain', `${route}`);
+});
 
-Cypress.Commands.add("allProducts", ()=>{
-  cy.get("h2.title").should("exist").should("have.text", "All Products");
-  cy.get(".product-image-wrapper").its("length").should("be.gt", 0);
-})
+Cypress.Commands.add('allProducts', () => {
+  cy.get('h2.title').should('exist').should('have.text', 'All Products');
+  cy.get('.product-image-wrapper').its('length').should('be.gt', 0);
+});
 
-Cypress.Commands.add("randomNum", (number)=>{
+Cypress.Commands.add('randomNum', (number) => {
   let randomNum = Math.floor(Math.random() * number);
-  return randomNum
-})
+  return randomNum;
+});
 
-Cypress.Commands.add("twoRandomNum", (number)=>{
+Cypress.Commands.add('twoRandomNum', (number) => {
   let randomNum1 = Math.floor(Math.random() * number);
   let randomNum2 = Math.floor(Math.random() * number);
-  do{
+  do {
     randomNum2 = Math.floor(Math.random() * number);
-  } while(randomNum1 === randomNum2)
-  return {randomNum1, randomNum2}
-})
+  } while (randomNum1 === randomNum2);
+  return { randomNum1, randomNum2 };
+});
