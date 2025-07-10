@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 
-export async function randomNum(totalNum){
+export async function randomNum(totalNum) {
   const randomNum = Math.floor(Math.random() * totalNum);
   return randomNum;
 }

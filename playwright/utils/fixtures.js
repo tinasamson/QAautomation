@@ -4,14 +4,14 @@ import { ProductPage } from '../pageObjects/productPage';
 import { gotoAEUrl } from './commonUtils';
 
 exports.customtest = base.test.extend({
-  loginPage: async ({page}, use) => {
+  loginPage: async ({ page }, use) => {
     // go to the login page
     await gotoAEUrl(page, '/login');
 
     // Use the fixture value in the test.
     await use(new LoginPage(page));
   },
-  productPage: async({page}, use)=>{
+  productPage: async ({ page }, use) => {
     // go to the product list page
     await gotoAEUrl(page, '/products');
 
