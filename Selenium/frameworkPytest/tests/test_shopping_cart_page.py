@@ -3,6 +3,7 @@ from tests.shoppingCart import Cart
 from tests.productDetailPage import ProductDetailPage
 from tests.productListPage import ProductPage
 
+
 def test_case_6_delete_product_from_cart(driverBrowserInstance):
     driver = driverBrowserInstance
     product_page = ProductPage(driver)
@@ -16,10 +17,13 @@ def test_case_6_delete_product_from_cart(driverBrowserInstance):
     shopping_cart.goToCart()
     shopping_cart.waitVisibilityElement(2, (By.CSS_SELECTOR, "#cart_info"))
     cartProductName, cartProductPrice = shopping_cart.getCartProductNamePrice()
-    shopping_cart.validateCartInfo(productName.replace(" ", ""), cartProductName.replace(" ", ""))
+    shopping_cart.validateCartInfo(
+        productName.replace(" ", ""), cartProductName.replace(" ", "")
+    )
     shopping_cart.validateCartInfo(productPrice, cartProductPrice)
     shopping_cart.deleteProductFromCart()
     shopping_cart.validateEmptyCart()
+
 
 def test_case_7_add_multiple_items_of_product_to_cart(driverBrowserInstance):
     driver = driverBrowserInstance
@@ -36,14 +40,24 @@ def test_case_7_add_multiple_items_of_product_to_cart(driverBrowserInstance):
     cartProductName, cartProductPrice = shopping_cart.getCartProductNamePrice()
     cartProductCategory = shopping_cart.getCartCategory()
     cartProductQuantity = shopping_cart.getCartProductQuantity()
-    productName, cartName = productDetailName.replace(" ", ""), cartProductName.replace(" ", "")
+    productName, cartName = productDetailName.replace(
+        " ", ""
+    ), cartProductName.replace(" ", "")
     cartCategory = f"Category: {cartProductCategory}"
-    productDetailInfo = [productName, productDetailPrice, productDetailCategory, productQuantity]
-    cartInfo = [cartName, cartProductPrice, cartCategory , cartProductQuantity]
+    productDetailInfo = [
+        productName,
+        productDetailPrice,
+        productDetailCategory,
+        productQuantity,
+    ]
+    cartInfo = [cartName, cartProductPrice, cartCategory, cartProductQuantity]
     for i in range(len(cartInfo)):
         shopping_cart.validateCartInfo(productDetailInfo[i], cartInfo[i])
     cartTotalPrice = shopping_cart.getCartTotalPrice()
-    shopping_cart.validateTotalPrice(productDetailPrice, cartTotalPrice, productQuantity)
+    shopping_cart.validateTotalPrice(
+        productDetailPrice, cartTotalPrice, productQuantity
+    )
+
 
 def test_case_8_Add_multiple_products_to_cart(driverBrowserInstance):
     driver = driverBrowserInstance
@@ -55,7 +69,9 @@ def test_case_8_Add_multiple_products_to_cart(driverBrowserInstance):
     for i in range(len(randomList)):
         productName = f"productName{i+1}"
         productPrice = f"productPrice{i+1}"
-        dict[productName], dict[productPrice] = product_page.getProductNamePrice(randomList[i])
+        dict[productName], dict[productPrice] = (
+            product_page.getProductNamePrice(randomList[i])
+        )
     shopping_cart = Cart(driver)
     shopping_cart.addProductToCart(dict["productName1"])
     shopping_cart.confirmModalContinueShopping()
@@ -66,8 +82,17 @@ def test_case_8_Add_multiple_products_to_cart(driverBrowserInstance):
         cartProductName = f"cartProductName{i+1}"
         cartProductPrice = f"cartProductPrice{i+1}"
         cartTotalPrice = f"cartTotalPrice{i+1}"
-        dict[cartProductName], dict[cartProductPrice] = shopping_cart.getCartProductNamePrice(i)
+        dict[cartProductName], dict[cartProductPrice] = (
+            shopping_cart.getCartProductNamePrice(i)
+        )
         dict[cartTotalPrice] = shopping_cart.getCartTotalPrice(i)
-        shopping_cart.validateCartInfo(dict[f"productName{i+1}"].replace(" ", ""), dict[cartProductName].replace(" ", ""))
-        shopping_cart.validateCartInfo(dict[f"productPrice{i+1}"], dict[cartProductPrice])
-        shopping_cart.validateTotalPrice(dict[cartProductPrice], dict[cartTotalPrice])
+        shopping_cart.validateCartInfo(
+            dict[f"productName{i+1}"].replace(" ", ""),
+            dict[cartProductName].replace(" ", ""),
+        )
+        shopping_cart.validateCartInfo(
+            dict[f"productPrice{i+1}"], dict[cartProductPrice]
+        )
+        shopping_cart.validateTotalPrice(
+            dict[cartProductPrice], dict[cartTotalPrice]
+        )
