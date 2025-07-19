@@ -29,15 +29,17 @@ export class ShoppingCartPage {
     await this.page.locator('.shop-menu ul li a[href*="cart"]').click();
   }
 
-  async getCartProductNamePrice() {
+  async getCartProductNamePrice(row = 0) {
     const cartProductName = await this.page
       .locator('.cart_description h4')
+      .nth(row)
       .textContent();
     const cartProdName = cartProductName.replaceAll('  ', ' ');
     const cartProductPrice = await this.page
       .locator('.cart_price p')
+      .nth(row)
       .textContent();
-    return { cartProdName, cartProductPrice };
+    return [cartProdName.replace('  ', ' '), cartProductPrice];
   }
 
   async validateCartInfo(productInfo, cartInfo) {
@@ -68,9 +70,10 @@ export class ShoppingCartPage {
     return parseInt(cartQuantity.trim());
   }
 
-  async getCartTotalPrice() {
+  async getCartTotalPrice(row = 0) {
     const cartTotalPrice = await this.page
       .locator('.cart_total_price')
+      .nth(row)
       .textContent();
     return cartTotalPrice;
   }

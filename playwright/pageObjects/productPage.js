@@ -22,7 +22,7 @@ export class ProductPage {
       .locator('.productinfo p')
       .nth(randomIndex)
       .textContent();
-    return { productName, productPrice };
+    return [productName.replace('  ', ' '), productPrice];
   }
 
   async validateProductInfo(randomIndex) {

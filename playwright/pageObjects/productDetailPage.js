@@ -37,11 +37,15 @@ export class ProductDetailPage {
     const productDetailName = await this.page
       .locator('.product-information h2')
       .textContent();
-    const productName = productDetailName.replaceAll('  ', ' ');
+    // Regex /\s+/g
+    // \s Matches any whitespace character
+    // +  Matches one or more occurrences
+    // g  The global flag, all occurrences of multiple spaces in the string are replaced
+    const productName = productDetailName.replaceAll(/\s+/g, ' ');
     const productDetailPrice = await this.page
       .locator('.product-information span span')
       .textContent();
-    return { productName, productDetailPrice };
+    return [productName, productDetailPrice];
   }
 
   async getCategory() {
@@ -49,7 +53,7 @@ export class ProductDetailPage {
       .locator('.product-information p')
       .first()
       .textContent();
-    const productCategory = productDetailCategory.replaceAll('  ', ' ');
+    const productCategory = productDetailCategory.replaceAll(/\s+/g, ' ');
     return productCategory;
   }
 

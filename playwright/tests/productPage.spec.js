@@ -7,7 +7,7 @@ customtest(
   async ({ page, productPage }) => {
     const totalProducts = await page.locator('.product-image-wrapper').count();
     const randomIndex = await randomNum(totalProducts);
-    const { productName, productPrice } =
+    const [productName, productPrice] =
       await productPage.getProductNamePrice(randomIndex);
 
     await productPage.validateProductInfo(randomIndex);
